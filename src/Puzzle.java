@@ -32,7 +32,7 @@ public class Puzzle {
         currentState.print();
     }
 
-    public void randmoizeState(int n){
+    public void randomizeState(int n){
         int count = 0;
         String[] movesArray = {"up","down","left","right"};
         ArrayList<String> moves = new ArrayList<String>(Arrays.asList(movesArray));

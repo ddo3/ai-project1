@@ -10,7 +10,7 @@ public class PuzzleState {
     }
 
     PuzzleState(){
-        state = "b12345678";
+        state = "b12 345 678";
         this.randomize();
     }
 
@@ -26,15 +26,21 @@ public class PuzzleState {
         return state;
     }
 
-    public void randomize(){
+    private void randomize(){
+
         StringBuilder sb = new StringBuilder();
         List<Character> characters = new ArrayList<Character>();
         for(char c : state.toCharArray()){
-            characters.add(c);
+            if(c != ' '){
+                characters.add(c);
+            }
         }
 
         while(characters.size() != 0){
             int rand = (int)(Math.random() * characters.size());
+            if(sb.length() == 3 || sb.length() == 7){
+                sb.append(" ");
+            }
             sb.append(characters.remove(rand));
         }
 
@@ -50,13 +56,14 @@ public class PuzzleState {
         stateArray[blankIndex] = otherTile;
         stateArray[index2] = blank;
 
-        state = stateArray.toString();
+        state = new String(stateArray);
     }
 
     public boolean moveUp(){
         int indexOfBlank = blankIndex();
-        if( indexOfBlank - 3 >= 0 ){
-            swap(indexOfBlank, indexOfBlank-3);
+        if( indexOfBlank - 4 >= 0 ){
+            swap(indexOfBlank, indexOfBlank - 4);
+            print();
             return true;
         }
         return false;
@@ -64,8 +71,9 @@ public class PuzzleState {
 
     public boolean moveDown(){
         int indexOfBlank = blankIndex();
-        if( indexOfBlank + 3 <= 8 ){
-            swap(indexOfBlank, indexOfBlank-3);
+        if( indexOfBlank + 4 < state.length()){
+            swap(indexOfBlank, indexOfBlank + 4);
+            print();
             return true;
         }
         return false;
@@ -73,13 +81,9 @@ public class PuzzleState {
 
     public boolean moveLeft(){
         int indexOfBlank = blankIndex();
-        ArrayList<Integer> invalidIndexNums = new ArrayList<>();
-        invalidIndexNums.add(-1);
-        invalidIndexNums.add(2);
-        invalidIndexNums.add(5);
-
-        if(invalidIndexNums.contains(indexOfBlank - 1 )){
+        if(state.charAt(indexOfBlank - 1 ) != ' ' && (indexOfBlank - 1 >= 0) ){
             swap(indexOfBlank, indexOfBlank - 1);
+            print();
             return true;
         }
         return false;
@@ -87,12 +91,9 @@ public class PuzzleState {
 
     public boolean moveRight(){
         int indexOfBlank = blankIndex();
-        ArrayList<Integer> invalidIndexNums = new ArrayList<>();
-        invalidIndexNums.add(3);
-        invalidIndexNums.add(6);
-        invalidIndexNums.add(9);
-        if(invalidIndexNums.contains(indexOfBlank + 1 )){
+        if(state.charAt(indexOfBlank + 1 ) != ' ' && (indexOfBlank + 1 < state.length())){
             swap(indexOfBlank, indexOfBlank + 1);
+            print();
             return true;
         }
         return false;
