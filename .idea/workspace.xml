@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b456b1c4-4d48-4ab4-a7b6-7b79617e3021" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Puzzle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Puzzle.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PuzzleSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PuzzleSolver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PuzzleState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PuzzleState.java" afterDir="false" />
@@ -20,34 +21,36 @@
     <session id="1581972603">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
+          <entry key="project.closed" value="5" />
           <entry key="project.open.time.18" value="1" />
           <entry key="project.open.time.21" value="1" />
           <entry key="project.open.time.22" value="1" />
+          <entry key="project.open.time.27" value="1" />
+          <entry key="project.open.time.29" value="1" />
           <entry key="project.open.time.3" value="1" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.opened" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="1" />
-          <entry key="java" value="6257" />
+          <entry key="java" value="8721" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="6257" />
+          <entry key="JAVA" value="8721" />
           <entry key="PLAIN_TEXT" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="2" />
+          <entry key="java" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="2" />
+          <entry key="JAVA" value="4" />
         </counts>
       </usages-collector>
     </session>
@@ -57,10 +60,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Puzzle.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="48" column="5" lean-forward="true" selection-start-line="48" selection-start-column="5" selection-end-line="48" selection-end-column="5" />
+            <state relative-caret-position="323">
+              <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#408#409#0" expanded="true" />
+                <element signature="e#442#443#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -69,11 +74,19 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/PuzzleState.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="28" column="11" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="11" />
+            <state relative-caret-position="459">
+              <caret line="108" column="9" lean-forward="true" selection-start-line="108" selection-start-column="9" selection-end-line="108" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#356#357#0" expanded="true" />
+                <element signature="e#377#378#0" expanded="true" />
+                <element signature="e#419#420#0" expanded="true" />
+                <element signature="e#449#450#0" expanded="true" />
                 <element signature="method#randomize#0;class#PuzzleState#0" />
+                <element signature="e#1105#1106#0" expanded="true" />
+                <element signature="e#1151#1152#0" expanded="true" />
+                <element signature="e#1721#1722#0" expanded="true" />
+                <element signature="e#1744#1745#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -82,13 +95,23 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/PuzzleSolver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="103" column="31" selection-start-line="103" selection-start-column="31" selection-end-line="103" selection-end-column="31" />
+            <state relative-caret-position="-391">
+              <caret line="74" column="35" selection-start-line="74" selection-start-column="35" selection-end-line="74" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#printSuccess#0;class#PuzzleSolver#0" />
-                <element signature="method#performAction#0;class#PuzzleSolver#0" />
+                <element signature="e#884#885#0" expanded="true" />
+                <element signature="e#953#954#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk-10.0.2/lib/src.zip!/java.base/java/util/Comparator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="196">
+              <caret line="149" column="8" selection-start-line="149" selection-start-column="8" selection-end-line="149" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -121,9 +144,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="733" />
-    <option name="y" value="-29" />
-    <option name="width" value="1040" />
+    <option name="x" value="732" />
+    <option name="y" value="-30" />
+    <option name="width" value="1041" />
     <option name="height" value="930" />
   </component>
   <component name="ProjectView">
@@ -131,7 +154,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -149,11 +171,12 @@
           <select />
         </subPane>
       </pane>
+      <pane id="AndroidView" />
       <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1536527066459" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1536761961174" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -217,14 +240,14 @@
       <window_info id="Capture Tool" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Image Layers" order="4" />
-      <window_info content_ui="combo" id="Project" order="5" visible="true" weight="0.13441296" />
+      <window_info active="true" content_ui="combo" id="Project" order="5" visible="true" weight="0.13927126" />
       <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" weight="0.15658364" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="2" />
       <window_info anchor="bottom" id="Message" order="3" />
       <window_info anchor="bottom" id="Find" order="4" />
-      <window_info active="true" anchor="bottom" id="Run" order="5" visible="true" weight="0.39145908" />
+      <window_info anchor="bottom" id="Run" order="5" weight="0.39145908" />
       <window_info anchor="bottom" id="Debug" order="6" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="7" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="8" weight="0.4" />
@@ -247,33 +270,51 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/Puzzle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="48" column="5" lean-forward="true" selection-start-line="48" selection-start-column="5" selection-end-line="48" selection-end-column="5" />
+        <state relative-caret-position="323">
+          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#408#409#0" expanded="true" />
+            <element signature="e#442#443#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-10.0.2/lib/src.zip!/java.base/java/util/Comparator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="149" column="8" selection-start-line="149" selection-start-column="8" selection-end-line="149" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/PuzzleState.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="28" column="11" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="11" />
+        <state relative-caret-position="459">
+          <caret line="108" column="9" lean-forward="true" selection-start-line="108" selection-start-column="9" selection-end-line="108" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#356#357#0" expanded="true" />
+            <element signature="e#377#378#0" expanded="true" />
+            <element signature="e#419#420#0" expanded="true" />
+            <element signature="e#449#450#0" expanded="true" />
             <element signature="method#randomize#0;class#PuzzleState#0" />
+            <element signature="e#1105#1106#0" expanded="true" />
+            <element signature="e#1151#1152#0" expanded="true" />
+            <element signature="e#1721#1722#0" expanded="true" />
+            <element signature="e#1744#1745#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/PuzzleSolver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="103" column="31" selection-start-line="103" selection-start-column="31" selection-end-line="103" selection-end-column="31" />
+        <state relative-caret-position="-391">
+          <caret line="74" column="35" selection-start-line="74" selection-start-column="35" selection-end-line="74" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#printSuccess#0;class#PuzzleSolver#0" />
-            <element signature="method#performAction#0;class#PuzzleSolver#0" />
+            <element signature="e#884#885#0" expanded="true" />
+            <element signature="e#953#954#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -16,12 +16,16 @@ public class Puzzle {
         isSolved = inGoalState();
     }
 
+    public PuzzleState getState(){
+        return currentState;
+    }
+
     public void setState(PuzzleState p){
         this.currentState = p;
     }
 
     public boolean inGoalState(){
-        return currentState.equals(goalState);
+        return currentState.isGoalState();
     }
 
     public void setIsSolved(){
@@ -40,39 +44,32 @@ public class Puzzle {
         while(count != n) {
             int rand = (int) (Math.random() * moves.size());
             String choice = moves.get(rand);
-            boolean result = move(choice);
-
-            if (result) {//we were able to perform that move given state
-                count++;
-            }
+            move(choice);
+            count++;
         }
     }
 
-    public boolean move(String direc){
-        boolean result = false;
+    public void move(String direc){
+
         switch (direc){
             case "up" :
-                result =  currentState.moveUp();
+                currentState =  currentState.moveUp();
                 setIsSolved();
-                return result;
 
             case "down" :
-                result = currentState.moveDown();
+                currentState = currentState.moveDown();
                 setIsSolved();
-                return result;
 
             case "left" :
-                result = currentState.moveLeft();
+                currentState = currentState.moveLeft();
                 setIsSolved();
-                return result;
 
             case "right" :
-                result = currentState.moveRight();
+                currentState = currentState.moveRight();
                 setIsSolved();
-                return result;
 
             default:
-                return false;
+                System.out.println("This is an invalid move : " + direc);
         }
     }
 
