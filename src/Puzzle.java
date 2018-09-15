@@ -53,23 +53,28 @@ public class Puzzle {
 
         switch (direc){
             case "up" :
-                currentState =  currentState.moveUp();
+                currentState = PuzzleState.moveUp(currentState);
                 setIsSolved();
+                return;
 
             case "down" :
-                currentState = currentState.moveDown();
+                currentState = PuzzleState.moveDown(currentState);
                 setIsSolved();
+                return;
 
             case "left" :
-                currentState = currentState.moveLeft();
+                currentState = PuzzleState.moveLeft(currentState);
                 setIsSolved();
+                return;
 
             case "right" :
-                currentState = currentState.moveRight();
+                currentState = PuzzleState.moveRight(currentState);
                 setIsSolved();
+                return;
 
             default:
                 System.out.println("This is an invalid move : " + direc);
+                return;
         }
     }
 

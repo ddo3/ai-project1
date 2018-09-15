@@ -5,7 +5,9 @@ public class PuzzleState {
 
     private String state;
 
-    private String goalState = "b12 345 678";
+    private PuzzleState parent = null;
+
+    private Direction direction = Direction.START;
 
     private int fValue = 0;
 
@@ -14,7 +16,7 @@ public class PuzzleState {
     }
 
     PuzzleState(){
-        state = goalState;
+        state = "b12 345 678";
         this.randomize();
     }
 
@@ -25,6 +27,23 @@ public class PuzzleState {
     public void setFValue(int v){
         this.fValue = v;
     }
+
+    public void setDirection(Direction d){
+        direction = d;
+    }
+
+    public Direction getDirection(){
+        return direction;
+    }
+
+    public PuzzleState getParent(){
+        return parent;
+    }
+
+    public void setParent(PuzzleState parent) {
+        this.parent = parent;
+    }
+
     private int blankIndex(){
         return state.indexOf('b');
     }
@@ -59,97 +78,202 @@ public class PuzzleState {
     }
 
     public boolean isGoalState(){
-        return state.equals(goalState);
+        return state.equals("b12 345 678");
     }
 
-    private void swap(int blankIndex, int index2){
-        var stateArray = state.toCharArray();
+    private static String swap(int blankIndex, int index2, String s){
+        var array = s.toCharArray();
 
-        char blank = stateArray[blankIndex];
-        char otherTile = stateArray[index2];
+        char blank = array[blankIndex];
+        char otherTile = array[index2];
 
-        stateArray[blankIndex] = otherTile;
-        stateArray[index2] = blank;
+        array[blankIndex] = otherTile;
+        array[index2] = blank;
 
-        state = new String(stateArray);
+        return new String(array);
     }
 
-    public int getNumberOfMisplacedTiles(PuzzleState ps){
+    public static Set<PuzzleState> removeStateFromSet(Set<PuzzleState> set, PuzzleState ps){
+        Set<PuzzleState> newSet = new HashSet<>();
+        for(PuzzleState state : set){
+            if (!state.toString().equals(ps.toString()))
+                newSet.add(state);
+        }
+        return newSet;
+    }
+
+    public static boolean setHasState(Set<PuzzleState> states, String state){
+        for (PuzzleState s: states) {
+            if(s.state.equals(state)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public static Set<String> getAllStateStrings(Set<PuzzleState> states){
+        Set<String> stateStrings = new HashSet<>();
+
+        for (PuzzleState ps: states) {
+            stateStrings.add(ps.toString());
+        }
+
+        return stateStrings;
+    }
+
+    public static int getNumberOfMisplacedTiles(PuzzleState ps){
         int count = 0;
-        for (int i = 0; i < state.length() ; i++){
-            if(ps.state.charAt(i) != goalState.charAt(i)){
+        for (int i = 0; i < ps.toString().length() ; i++){
+            if(ps.state.charAt(i) != "b12 345 678".charAt(i)){
                 count++;
             }
         }
         return count;
     }
 
-    public int getSumOfDistOfTilesFromGoal(PuzzleState ps){
-        return 0;
+    public static int getSumOfDistOfTilesFromGoal(PuzzleState ps){
+        var noSpaceState = removeSpaces(ps.toString());
+
+        var sum = 0;
+
+        for (int i = 0; i < noSpaceState.length(); i++){
+            //turn index to x and y
+            int y = (i / 3);
+            int x = i - (y * 3);
+
+            sum = sum + getDistOfSingleTileFromGoal(noSpaceState.charAt(i), x, y);
+        }
+        return sum;
     }
 
-    public Set<PuzzleState> getAllReachableStatesFromCurrentState(Set<PuzzleState> visited){
-        Set<PuzzleState> newStates = new HashSet<>();
-
-        newStates.add(this.moveDown());
-        newStates.add(this.moveLeft());
-        newStates.add(this.moveRight());
-        newStates.add(this.moveUp());
-
-        //check if this state is in the set
-        if(newStates.contains(this)){
-            newStates.remove(this);
+    private static int getDistOfSingleTileFromGoal(char tile, int x, int y){
+        var goalX = 0;
+        var goalY = 0;
+        switch(tile){
+            case 'b':
+                goalX = 0;
+                goalY = 0;
+                return manhattanDistance(x,y,goalX, goalY);
+            case '1':
+                goalX = 1;
+                goalY = 0;
+                return manhattanDistance(x,y,goalX, goalY);
+            case '2':
+                goalX = 2;
+                goalY = 0;
+                return manhattanDistance(x,y,goalX, goalY);
+            case '3':
+                goalX = 0;
+                goalY = 1;
+                return manhattanDistance(x,y,goalX, goalY);
+            case '4':
+                goalX = 1;
+                goalY = 1;
+                return manhattanDistance(x,y,goalX, goalY);
+            case '5':
+                goalX = 1;
+                goalY = 2;
+                return manhattanDistance(x,y,goalX, goalY);
+            case '6':
+                goalX = 2;
+                goalY = 0;
+                return manhattanDistance(x,y,goalX, goalY);
+            case '7':
+                goalX = 2;
+                goalY = 1;
+                return manhattanDistance(x,y,goalX, goalY);
+            case '8':
+                goalX = 2;
+                goalY = 2;
+                return manhattanDistance(x,y,goalX, goalY);
+            default:
+                return 0;
         }
-
-        //check if any visited states are in the set
-        for (PuzzleState ps: newStates) {
-            if(visited.contains(ps)){
-                newStates.remove(ps);
-            }
-        }
-
-        return newStates;
     }
 
-    public PuzzleState moveUp(){
-        int indexOfBlank = blankIndex();
+    private static int manhattanDistance(int x1, int y1, int x2, int y2){
+        return Math.abs(x1-x2) + Math.abs(y1-y2);
+    }
+
+    private static String removeSpaces(String state){
+        return state.replaceAll(" ", "");
+    }
+
+    /********/
+    //these methods return the state after the swap, does not change current state
+    public static PuzzleState moveUp(PuzzleState workingState){
+        String stateString = workingState.toString();
+        int indexOfBlank = workingState.blankIndex();
         if( indexOfBlank - 4 >= 0 ){
-            swap(indexOfBlank, indexOfBlank - 4);
+            //swap the string string specifically to get a new string
+            String newStateString = swap(indexOfBlank, indexOfBlank - 4, stateString);
+            //return an new state and set all appropriate variables
+            var newState = new PuzzleState(newStateString);
+            newState.setDirection(Direction.UP);
+            newState.setParent(workingState);
+            return newState;
         }
-        return new PuzzleState(state);
+        return workingState;
     }
 
-    public PuzzleState moveDown(){
-        int indexOfBlank = blankIndex();
-        if( indexOfBlank + 4 < state.length()){
-            swap(indexOfBlank, indexOfBlank + 4);
+    public static PuzzleState moveDown(PuzzleState workingState){
+        String stateString = workingState.toString();
+        int indexOfBlank = workingState.blankIndex();
+        if( indexOfBlank + 4 < workingState.toString().length()){
+            //swap the string string specifically to get a new string
+            String newStateString = swap(indexOfBlank, indexOfBlank + 4, stateString);
+            //return an new state and set all appropriate variables
+            var newState = new PuzzleState(newStateString);
+            newState.setDirection(Direction.DOWN);
+            newState.setParent(workingState);
+            return newState;
         }
-        return new PuzzleState(state);
+        return workingState;
     }
 
-    public PuzzleState moveLeft(){
-        int indexOfBlank = blankIndex();
-        if(state.charAt(indexOfBlank - 1 ) != ' ' && (indexOfBlank - 1 >= 0) ){
-            swap(indexOfBlank, indexOfBlank - 1);
+    public static PuzzleState moveLeft(PuzzleState workingState){
+        String stateString = workingState.toString();
+        int indexOfBlank = workingState.blankIndex();
+        if((indexOfBlank - 1 >= 0) && workingState.toString().charAt(indexOfBlank - 1 ) != ' ' ){
+            //swap the string string specifically to get a new string
+            String newStateString = swap(indexOfBlank, indexOfBlank - 1 , stateString);
+            //return an new state and set all appropriate variables
+            var newState = new PuzzleState(newStateString);
+            newState.setDirection(Direction.LEFT);
+            newState.setParent(workingState);
+            return newState;
         }
-        return new PuzzleState(state);
+        return workingState;
     }
 
-    public PuzzleState moveRight(){
-        int indexOfBlank = blankIndex();
-        if(state.charAt(indexOfBlank + 1 ) != ' ' && (indexOfBlank + 1 < state.length())){
-            swap(indexOfBlank, indexOfBlank + 1);
+    public static PuzzleState moveRight(PuzzleState workingState){
+        String stateString = workingState.toString();
+        int indexOfBlank = workingState.blankIndex();
+        if((indexOfBlank + 1 < workingState.toString().length()) && workingState.toString().charAt(indexOfBlank + 1 ) != ' ' ){
+            //swap the string string specifically to get a new string
+            String newStateString = swap(indexOfBlank, indexOfBlank + 1 , stateString);
+            //return an new state and set all appropriate variables
+            var newState = new PuzzleState(newStateString);
+            newState.setDirection(Direction.RIGHT);
+            newState.setParent(workingState);
+            return newState;
         }
-
-        return new PuzzleState(state);
+        return workingState;
     }
+
+    /**********/
 
     public void print(){
         System.out.println(state);
     }
 
     public static void main(String args[]){
-        PuzzleState p = new PuzzleState();
+        PuzzleState p = new PuzzleState("147 258 36b");
         p.print();
+
+        var test = getSumOfDistOfTilesFromGoal(p);
+
+        System.out.println("total: "+test);
     }
 }

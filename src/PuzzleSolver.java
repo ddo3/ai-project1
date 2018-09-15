@@ -1,8 +1,8 @@
 import java.io.*;
-import java.text.RuleBasedCollator;
 import java.util.*;
 
 public class PuzzleSolver {
+
     private int maxNodes;
 
     private Puzzle puzzle;
@@ -15,22 +15,51 @@ public class PuzzleSolver {
         maxNodes = n;
     }
 
-    //this is where the search methods will go
-
-    public void printSuccess(boolean s){
-        String addOn = " ";
-        if(!s){
-            addOn = " NOT ";
-        }
-
-        System.out.println("This action was"+ addOn+ "sucsessful");
-    }
-
     public static void print(String s){
         System.out.println(s);
     }
 
+    private Set<PuzzleState> getAllReachableStatesFromState(Set<String> visited, PuzzleState ps){
+        Set<PuzzleState> newStates = new HashSet<>();
 
+        var m1 = PuzzleState.moveDown(ps);
+        var m2 = PuzzleState.moveLeft(ps);
+        var m3 = PuzzleState.moveRight(ps);
+        var m4 = PuzzleState.moveUp(ps);
+
+        newStates.add(m1);
+        newStates.add(m2);
+        newStates.add(m3);
+        newStates.add(m4);
+
+        //check if this state is in the set
+        if(newStates.contains(ps)){
+            newStates.remove(ps);
+        }
+
+        //
+        Set<PuzzleState> finalStates = new HashSet<>();
+        //check if any visited states are in the set
+        for (PuzzleState puz: newStates) {
+            if(!visited.contains(puz.toString())){
+                finalStates.add(puz);
+            }
+        }
+        return finalStates;
+    }
+
+    public List<PuzzleState> getPath(PuzzleState initial){
+        List<PuzzleState> path = new ArrayList<>();
+        PuzzleState node = initial;
+        while(node.getParent() != null){
+            path.add(node);
+            node = node.getParent();
+        }
+
+        return path;
+    }
+
+    //this is where the search methods will go
     public void aStar(String heuristic){
         var depth = 0;
         var state = puzzle.getState();
@@ -44,40 +73,47 @@ public class PuzzleSolver {
 
         PriorityQueue<PuzzleState> pq = new PriorityQueue<>(byFValue);
 
-        Set<PuzzleState> visited = new HashSet<>();
+        Set<String> visited = new HashSet<>();
+
+        //add first state to pq
+        pq.add(state);
 
         while(!state.isGoalState()){
-            //add state visited
-            visited.add(state);
+            //get top state from pq
+            state = pq.poll();
+
+            //get all states reachable from state
+            Set<PuzzleState> reachableStates = getAllReachableStatesFromState( visited, state);
+
             //increase depth
             depth++;
 
-            //get all states reachable from state
-            Set<PuzzleState> reachableStates = state.getAllReachableStatesFromCurrentState( visited);
-
-            //calculate fvalue for each state in list based on huristic and depth
+            //calculate fvalue for each state in list based on huristic
             for ( PuzzleState ps: reachableStates) {
                 var hvalue = 0;
                 if(heuristic.equals("h1")){
-                    hvalue = ps.getNumberOfMisplacedTiles(ps);
+                    hvalue = PuzzleState.getNumberOfMisplacedTiles(ps);
                 }else{
-                    hvalue = ps.getSumOfDistOfTilesFromGoal(ps);
+                    hvalue = PuzzleState.getSumOfDistOfTilesFromGoal(ps);
                 }
-
                 ps.setFValue(hvalue + depth);
             }
+
             //add state's possible moves to pq based on depth and heuristic
             pq.addAll(reachableStates);
 
-            //choses from top of prioroty queue
-            state = pq.poll();
-            //set chosen state as puzzles new state????
-            puzzle.setState(state);
+            //add state visited
+            visited.add(state.toString());
 
+            print("state : " + state.toString()+" depth : " +depth);
         }
 
         System.out.println("Found the goal state!");
         System.out.println("Depth : " + depth);
+    }
+
+    //todo implement this
+    public void beam(int numOfStates){
 
     }
 
@@ -86,28 +122,34 @@ public class PuzzleSolver {
             case "setState": //works
                 PuzzleState newState = new PuzzleState(param);
                 puzzle.setState(newState);
+                return;
 
             case "randomizeState" : //works
                 puzzle.randomizeState(Integer.parseInt(param));
+                return;
 
             case "printState": //works
                 puzzle.printState();
-
+                return;
             case "move": //works
                 puzzle.move(param);
+                return;
 
-            case "solve A-star":
+            case "solve A-star": //works!!!!!
                 this.aStar(param);
+                return;
 
             case "solve beam":
-                //return false;
+                this.beam(Integer.parseInt(param));
+                return;
 
             case "maxNodes":
                 maxNodes(Integer.parseInt(param));
-
+                return;
 
             default :
-                System.out.print("That was not a valid command!");
+                System.out.println("That was not a valid command!");
+                return;
         }
     }
 
@@ -129,6 +171,7 @@ public class PuzzleSolver {
         }
     }
 
+    //todo make this command line input
     public static void main(String args[]){
         PuzzleSolver ps = new PuzzleSolver();
         System.out.println("Start entering commands");
