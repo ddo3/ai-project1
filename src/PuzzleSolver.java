@@ -15,10 +15,6 @@ public class PuzzleSolver {
         maxNodes = n;
     }
 
-    public static void print(String s){
-        System.out.println(s);
-    }
-
     private Set<PuzzleState> getAllReachableStatesFromState(Set<String> visited, PuzzleState ps){
         Set<PuzzleState> newStates = new HashSet<>();
 
@@ -49,10 +45,10 @@ public class PuzzleSolver {
     }
 
     public List<PuzzleState> getPath(PuzzleState initial){
-        List<PuzzleState> path = new ArrayList<>();
+        LinkedList<PuzzleState> path = new LinkedList<>();
         PuzzleState node = initial;
         while(node.getParent() != null){
-            path.add(node);
+            path.addFirst(node);
             node = node.getParent();
         }
 
@@ -61,7 +57,9 @@ public class PuzzleSolver {
 
     //this is where the search methods will go
     public void aStar(String heuristic){
+        var numOfNodes = 0;
         var depth = 0;
+        boolean reachedMaxNodes = false;
         var state = puzzle.getState();
 
         Comparator<PuzzleState> byFValue = new Comparator<PuzzleState>() {
@@ -85,8 +83,14 @@ public class PuzzleSolver {
             //get all states reachable from state
             Set<PuzzleState> reachableStates = getAllReachableStatesFromState( visited, state);
 
-            //increase depth
             depth++;
+
+            numOfNodes = visited.size();
+
+            if(numOfNodes == maxNodes){
+                reachedMaxNodes = true;
+                break;
+            }
 
             //calculate fvalue for each state in list based on huristic
             for ( PuzzleState ps: reachableStates) {
@@ -104,17 +108,136 @@ public class PuzzleSolver {
 
             //add state visited
             visited.add(state.toString());
-
-            print("state : " + state.toString()+" depth : " +depth);
         }
 
-        System.out.println("Found the goal state!");
-        System.out.println("Depth : " + depth);
+        if(reachedMaxNodes){
+            System.out.println("ERROR : Reached to max nodes!");
+        }else{
+            System.out.println("Found the goal state!");
+
+            var path = getPath(state);
+
+            System.out.println("Number of Nodes : " + path.size());
+
+            System.out.println(printList(path));
+        }
+
     }
 
-    //todo implement this
-    public void beam(int numOfStates){
+    private static String printList(List<PuzzleState> list){
+        StringBuilder sb = new StringBuilder();
 
+        sb.append("BEGIN : ");
+        for(PuzzleState ps : list){
+            sb.append(ps.getDirection().toString() + " ");
+        }
+        sb.append(": END");
+        return sb.toString();
+    }
+
+    private static  List<PuzzleState> getKRandomStates(int k, PuzzleState ps){
+        List<PuzzleState> testStates = new ArrayList<>();
+
+        while(testStates.size() != k){
+            //get a random depth
+            int depth = (int) (Math.random() * 10);
+            int count = 0;
+            var state = ps;
+            //call getRandomState depth number of times
+            while(count != depth){
+                state = PuzzleState.getRandomState(state);
+                count++;
+            }
+
+            //calutate the f valeu for the final result
+            state.setFValue(PuzzleState.getSumOfDistOfTilesFromGoal(state));
+
+            testStates.add(state);
+        }
+
+        return testStates;
+    }
+
+    //todo test this
+    public void beam(int numOfStates){
+        boolean isGoalState = false;
+        PuzzleState finishedState = null;
+
+        var numOfNodes = 0;
+        boolean reachedMaxNodes = false;
+
+        //create priority Q
+        Comparator<PuzzleState> byFValue = new Comparator<PuzzleState>() {
+            @Override
+            public int compare(PuzzleState o1, PuzzleState o2) {
+                return o1.getFValue() - (o2.getFValue());
+            }
+        };
+
+        PriorityQueue<PuzzleState> pq = new PriorityQueue<>(byFValue);
+
+        //generate k random states from start puzzle
+        List<PuzzleState> nextStates = getKRandomStates(numOfStates, puzzle.getState());
+
+        //check to see if any random states are in the are in the goal state
+        for(PuzzleState ps : nextStates){
+            if(ps.isGoalState()){
+                isGoalState = true;
+                finishedState = ps;
+                break;
+            }
+        }
+
+        while(!isGoalState){
+            if(numOfNodes == maxNodes){
+                reachedMaxNodes = true;
+                break;
+            }
+
+            List<PuzzleState> successors = new ArrayList<>();
+            //for each state get its successors
+            for(PuzzleState ps : nextStates){
+                successors.addAll(PuzzleState.getAllSuccessors(ps));
+            }
+
+            //check if any of the successors are the goal state, if they are quit
+            for(PuzzleState ps : successors){
+                if(ps.isGoalState()){
+                    isGoalState = true;
+                    finishedState = ps;
+                    break;
+                }
+            }
+
+            if(!isGoalState){
+                //add all to Q
+                pq.addAll(successors);
+
+                nextStates.clear();
+                //take top k nodes from Q
+                for(int i = 0; i < numOfStates; i ++){
+                    nextStates.add(pq.poll());
+                }
+
+                numOfNodes+=numOfStates;
+
+                //clear Q
+                pq.clear();
+            }
+
+        }
+
+        if(reachedMaxNodes){
+            System.out.println("ERROR : Reached to max nodes!");
+        }else {
+            System.out.println("Found the goal state!");
+
+            var path = getPath(finishedState);
+
+            System.out.println("Number of Nodes : " + path.size());
+
+            System.out.println(printList(path));
+        }
     }
 
     private void performAction(String action, String param){
@@ -143,7 +266,7 @@ public class PuzzleSolver {
                 this.beam(Integer.parseInt(param));
                 return;
 
-            case "maxNodes":
+            case "maxNodes": //works
                 maxNodes(Integer.parseInt(param));
                 return;
 
@@ -188,8 +311,6 @@ public class PuzzleSolver {
                         //System.out.println(st);
                         ps.parseAndPerformAction(st);
                     }
-
-                    br.close();
                 }catch (FileNotFoundException ex){
                         System.out.println(ex);
                 }catch (IOException ex){

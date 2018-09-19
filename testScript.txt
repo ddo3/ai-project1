@@ -1,8 +1,0 @@
-printState
-move up
-move up
-move left
-move left
-move down
-move right
-printState
