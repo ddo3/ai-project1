@@ -114,7 +114,15 @@ public class PuzzleState {
         states.add(left);
         states.add(right);
 
-        return states;
+
+        List<PuzzleState> finalStates = new ArrayList<>();
+        for(PuzzleState s : states){
+            if(!s.state.equals(ps.state)){
+                finalStates.add(s);
+            }
+        }
+
+        return finalStates;
     }
 
     public static PuzzleState getRandomState(PuzzleState ps){

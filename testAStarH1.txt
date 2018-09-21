@@ -1,4 +1,4 @@
-setState 142 35b 678
+setState 142 375 b68
 printState
 maxNodes 1000
 solve A-star h1

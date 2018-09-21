@@ -51,8 +51,8 @@ public class Grid {
     }
 
     public void rotateLeft(){
-        char[] copyRow1 = {row1[0], row1[1]};
-        char[] copyRow2 = {row2[0], row2[1]};
+        char[] copyRow1 = {row1[1], row1[0]};
+        char[] copyRow2 = {row2[1], row2[0]};
         setCol(0,copyRow1);
         setCol(1,copyRow2);
     }
@@ -74,8 +74,6 @@ public class Grid {
     public static void printGrid(Grid g){
         System.out.println("     "+g.row1[0]+ " "+ g.row1[1]);
         System.out.println("     "+g.row2[0]+ " "+ g.row2[1]);
-        //System.out.println();
-        //System.out.println();
     }
 
     public static void printGrids(List<Grid> grids){
@@ -99,11 +97,11 @@ public class Grid {
         Grid.printGrid(grid);
         System.out.println();
 
-        grid.rotateRight();
+        grid.rotateLeft();
         Grid.printGrid(grid);
         System.out.println();
 
-        grid.rotateRight();
+        grid.rotateLeft();
         Grid.printGrid(grid);
     }
 }

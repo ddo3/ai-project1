@@ -137,7 +137,6 @@ public class RubikState {
         if(d == Direction.RIGHT){
             rs.getBack().rotateRight();
         }else {
-
             rs.getBack().rotateLeft();
         }
 
@@ -228,8 +227,8 @@ public class RubikState {
         rs.setParent(this);
 
         //set up faces to be rotated
-        rs.getFront().getGrid().rotateLeft();
-        rs.getFront().getGrid().rotateLeft();
+        rs.getBack().getGrid().rotateLeft();
+        rs.getBack().getGrid().rotateLeft();
         rs.getLeft().getGrid().rotateLeft();
         rs.getRight().getGrid().rotateRight();
 
@@ -240,8 +239,8 @@ public class RubikState {
         }
 
         //rotate faces back
-        rs.getFront().getGrid().rotateRight();
-        rs.getFront().getGrid().rotateRight();
+        rs.getBack().getGrid().rotateRight();
+        rs.getBack().getGrid().rotateRight();
         rs.getLeft().getGrid().rotateRight();
         rs.getRight().getGrid().rotateLeft();
 

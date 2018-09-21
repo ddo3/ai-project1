@@ -27,9 +27,11 @@ public class PuzzleFace {
     public void setRight (PuzzleFace face){
         right = face;
     }
+
     public void setTop (PuzzleFace face){
         top = face;
     }
+
     public void setBottom (PuzzleFace face){
         bottom = face;
     }
@@ -65,7 +67,6 @@ public class PuzzleFace {
         //rotate the current face
         grid.rotateRight();
     }
-
 
     public static boolean isEqual( PuzzleFace p1, PuzzleFace p2){
         return Grid.isEqual(p1.grid, p2.grid);

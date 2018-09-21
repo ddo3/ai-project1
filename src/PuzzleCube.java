@@ -36,12 +36,11 @@ public class PuzzleCube {
     }
 
     public static void main(String[] args){
-        //TODO test all rotations!!!
         PuzzleCube ps = new PuzzleCube(new RubikState());
 
         ps.print();
 
-        ps.rotate(Face.TOP, Direction.RIGHT); //TODO everything but front rotation not working
+        ps.rotate(Face.TOP, Direction.RIGHT);
 
         ps.print();
 

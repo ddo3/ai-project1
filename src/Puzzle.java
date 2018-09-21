@@ -3,7 +3,7 @@ import java.lang.*;
 
 public class Puzzle {
     private PuzzleState currentState;
-    private String goalState = "b12345678";
+    private String goalState = "b12 345 678";
     private boolean isSolved;
 
     Puzzle(){
@@ -37,16 +37,26 @@ public class Puzzle {
     }
 
     public void randomizeState(int n){
+
+        //set currentState to goal state
+        currentState = new PuzzleState(goalState);
+
         int count = 0;
+        int seed  = 10;
+        Random generator = new Random(seed);
         String[] movesArray = {"up","down","left","right"};
         ArrayList<String> moves = new ArrayList<String>(Arrays.asList(movesArray));
 
         while(count != n) {
-            int rand = (int) (Math.random() * moves.size());
+
+            int rand = generator.nextInt((3 - 0) + 1);
             String choice = moves.get(rand);
             move(choice);
             count++;
         }
+
+        currentState.setParent(null);
+        currentState.setDirection(Direction.START);
     }
 
     public void move(String direc){

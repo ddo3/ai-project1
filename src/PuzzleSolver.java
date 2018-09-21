@@ -55,9 +55,43 @@ public class PuzzleSolver {
         return path;
     }
 
-    //this is where the search methods will go
+    private static String printList(List<PuzzleState> list){
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("BEGIN : ");
+        for(PuzzleState ps : list){
+            sb.append(ps.getDirection().toString() + " ");
+        }
+        sb.append(": END");
+        return sb.toString();
+    }
+
+    private static  List<PuzzleState> getKRandomStates(int k, PuzzleState ps){
+        List<PuzzleState> testStates = new ArrayList<>();
+
+        while(testStates.size() != k){
+            //get a random depth
+            int depth = (int) (Math.random() * 10);
+            int count = 0;
+            var state = ps;
+            //call getRandomState depth number of times
+            while(count != depth){
+                state = PuzzleState.getRandomState(state);
+                count++;
+            }
+
+            //calutate the f valeu for the final result
+            state.setFValue(PuzzleState.getSumOfDistOfTilesFromGoal(state));
+
+            testStates.add(state);
+        }
+
+        return testStates;
+    }
+
+    /********SEARCH METHODS**********/
+
     public void aStar(String heuristic){
-        var numOfNodes = 0;
         var depth = 0;
         boolean reachedMaxNodes = false;
         var state = puzzle.getState();
@@ -80,14 +114,17 @@ public class PuzzleSolver {
             //get top state from pq
             state = pq.poll();
 
+            if(state.isGoalState()){
+                break;
+            }
+
+
             //get all states reachable from state
             Set<PuzzleState> reachableStates = getAllReachableStatesFromState( visited, state);
 
             depth++;
 
-            numOfNodes = visited.size();
-
-            if(numOfNodes == maxNodes){
+            if(pq.size() >= maxNodes){
                 reachedMaxNodes = true;
                 break;
             }
@@ -124,46 +161,9 @@ public class PuzzleSolver {
 
     }
 
-    private static String printList(List<PuzzleState> list){
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("BEGIN : ");
-        for(PuzzleState ps : list){
-            sb.append(ps.getDirection().toString() + " ");
-        }
-        sb.append(": END");
-        return sb.toString();
-    }
-
-    private static  List<PuzzleState> getKRandomStates(int k, PuzzleState ps){
-        List<PuzzleState> testStates = new ArrayList<>();
-
-        while(testStates.size() != k){
-            //get a random depth
-            int depth = (int) (Math.random() * 10);
-            int count = 0;
-            var state = ps;
-            //call getRandomState depth number of times
-            while(count != depth){
-                state = PuzzleState.getRandomState(state);
-                count++;
-            }
-
-            //calutate the f valeu for the final result
-            state.setFValue(PuzzleState.getSumOfDistOfTilesFromGoal(state));
-
-            testStates.add(state);
-        }
-
-        return testStates;
-    }
-
-    //todo test this
     public void beam(int numOfStates){
         boolean isGoalState = false;
         PuzzleState finishedState = null;
-
-        var numOfNodes = 0;
         boolean reachedMaxNodes = false;
 
         //create priority Q
@@ -189,7 +189,7 @@ public class PuzzleSolver {
         }
 
         while(!isGoalState){
-            if(numOfNodes == maxNodes){
+            if(pq.size() >= maxNodes){
                 reachedMaxNodes = true;
                 break;
             }
@@ -219,26 +219,23 @@ public class PuzzleSolver {
                     nextStates.add(pq.poll());
                 }
 
-                numOfNodes+=numOfStates;
-
                 //clear Q
                 pq.clear();
             }
 
         }
 
-        if(reachedMaxNodes){
-            System.out.println("ERROR : Reached to max nodes!");
-        }else {
-            System.out.println("Found the goal state!");
+        System.out.println("Found the goal state!");
 
-            var path = getPath(finishedState);
+        var path = getPath(finishedState);
 
-            System.out.println("Number of Nodes : " + path.size());
+        System.out.println("Number of Nodes : " + path.size());
 
-            System.out.println(printList(path));
-        }
+        System.out.println(printList(path));
+
     }
+
+    /********************************/
 
     private void performAction(String action, String param){
         switch(action){
