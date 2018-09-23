@@ -91,7 +91,6 @@ public class RubikSolver {
         return path;
     }
 
-
     private static String printList(List<RubikState> list){
         StringBuilder sb = new StringBuilder();
 
@@ -103,6 +102,30 @@ public class RubikSolver {
 
         sb.append(": END");
         return sb.toString();
+    }
+
+    private List<RubikState> getKRandomStates(int k, RubikState rs){
+        List<RubikState> testStates = new ArrayList<>();
+
+        while(testStates.size() != k){
+            //get a random depth
+            int depth = (int) (Math.random() * 10);
+            int count = 0;
+            var state = rs;
+
+            //call getRandomState depth number of times
+            while(count != depth){
+                state = RubikState.getRandomState(state);
+                count++;
+            }
+
+            //calculate the f value for the final result
+            state.setFValue(RubikState.getNumberOfMisplacedColors(state));
+
+            testStates.add(state);
+        }
+
+        return testStates;
     }
 
     /*********SEARCH METHODS*********/
@@ -178,7 +201,72 @@ public class RubikSolver {
         }
     }
 
-    private void beam(int k){
+    private void beam(int numOfStates){
+        boolean isGoalState = false;
+        RubikState finishedState = null;
+
+        //create priority Q
+        Comparator<RubikState> byFValue = new Comparator<RubikState>() {
+            @Override
+            public int compare(RubikState o1, RubikState o2) {
+                return o1.getFValue() - (o2.getFValue());
+            }
+        };
+
+        PriorityQueue<RubikState> pq = new PriorityQueue<>(byFValue);
+
+        //generate k random states from start puzzle
+        List<RubikState> nextStates = getKRandomStates(numOfStates, puzzle.getState());
+
+        //check to see if any random states are in the are in the goal state
+        for(RubikState rs : nextStates){
+            if(isGoalState(rs)){
+                isGoalState = true;
+                finishedState = rs;
+                break;
+            }
+        }
+
+        while(!isGoalState){
+
+            List<RubikState> successors = new ArrayList<>();
+            //for each state get its successors
+            for(RubikState rs : nextStates){
+                successors.addAll(RubikState.getAllSuccessors(rs));
+            }
+
+            //check if any of the successors are the goal state, if they are quit
+            for(RubikState rs : successors){
+                if(isGoalState(rs)){
+                    isGoalState = true;
+                    finishedState = rs;
+                    break;
+                }
+            }
+
+            if(!isGoalState){
+                //add all to Q
+                pq.addAll(successors);
+
+                nextStates.clear();
+                //take top k nodes from Q
+                for(int i = 0; i < numOfStates; i ++){
+                    nextStates.add(pq.poll());
+                }
+
+                //clear Q
+                pq.clear();
+            }
+
+        }
+
+        System.out.println("Found the goal state!");
+
+        var path = getPath(finishedState);
+
+        System.out.println("Number of Nodes : " + path.size());
+
+        System.out.println(printList(path));
 
     }
     /********************************/
@@ -201,7 +289,7 @@ public class RubikSolver {
                 this.aStar(param);
                 return;
 
-            case "solve beam":
+            case "solve beam"://works 
                 this.beam(Integer.parseInt(param));
                 return;
 

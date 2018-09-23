@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class RubikState {
                                     //               0      1     2     3     4     5
@@ -267,6 +266,61 @@ public class RubikState {
         return sum;
     }
 
+    public static List<RubikState> getAllSuccessors(RubikState rs){
+        List<RubikState> newStates = new ArrayList<>();
+
+        var m1 = RubikState.rotateBackFace(Direction.RIGHT, rs);
+        m1.setFValue(RubikState.getNumberOfMisplacedColors(m1));
+
+        var m2 = RubikState.rotateBackFace(Direction.LEFT, rs);
+        m2.setFValue(RubikState.getNumberOfMisplacedColors(m2));
+
+        var m3 = RubikState.rotateFrontFace(Direction.RIGHT, rs);
+        m3.setFValue(RubikState.getNumberOfMisplacedColors(m3));
+
+        var m4 = RubikState.rotateFrontFace(Direction.LEFT, rs);
+        m4.setFValue(RubikState.getNumberOfMisplacedColors(m4));
+
+        var m5 = RubikState.rotateLeftFace(Direction.RIGHT, rs);
+        m5.setFValue(RubikState.getNumberOfMisplacedColors(m5));
+
+        var m6 = RubikState.rotateLeftFace(Direction.LEFT, rs);
+        m6.setFValue(RubikState.getNumberOfMisplacedColors(m6));
+
+        var m7 = RubikState.rotateRightFace(Direction.RIGHT, rs);
+        m7.setFValue(RubikState.getNumberOfMisplacedColors(m7));
+
+        var m8 = RubikState.rotateRightFace(Direction.LEFT, rs);
+        m8.setFValue(RubikState.getNumberOfMisplacedColors(m8));
+
+        var m9 = RubikState.rotateTopFace(Direction.RIGHT, rs);
+        m9.setFValue(RubikState.getNumberOfMisplacedColors(m9));
+
+        var m10 = RubikState.rotateTopFace(Direction.LEFT, rs);
+        m10.setFValue(RubikState.getNumberOfMisplacedColors(m10));
+
+        var m11 = RubikState.rotateBottomFace(Direction.RIGHT, rs);
+        m11.setFValue(RubikState.getNumberOfMisplacedColors(m11));
+
+        var m12 = RubikState.rotateBottomFace(Direction.LEFT, rs);
+        m12.setFValue(RubikState.getNumberOfMisplacedColors(m12));
+
+        newStates.add(m1);
+        newStates.add(m2);
+        newStates.add(m3);
+        newStates.add(m4);
+        newStates.add(m5);
+        newStates.add(m6);
+        newStates.add(m7);
+        newStates.add(m8);
+        newStates.add(m9);
+        newStates.add(m10);
+        newStates.add(m11);
+        newStates.add(m12);
+
+        return newStates;
+    }
+
     public void updatePuzzleState(){
         state.clear();
 
@@ -326,6 +380,37 @@ public class RubikState {
 
     public int getFValue() {
         return fValue;
+    }
+
+    public static RubikState getRandomState(RubikState state){
+        Random generator = new Random(20);
+
+        Direction[] movesArray = {Direction.LEFT,Direction.RIGHT};
+        String[] facesArray = {"left", "right", "front", "back", "top", "bottom"};
+        ArrayList<Direction> moves = new ArrayList<>(Arrays.asList(movesArray));
+        ArrayList<String> faces = new ArrayList<>(Arrays.asList(facesArray));
+
+        int randMove = generator.nextInt(2);
+        int randFace = generator.nextInt(6);
+        Direction moveChoice = moves.get(randMove);
+        String faceChoice = faces.get(randFace);
+
+        switch(faceChoice){
+            case "left":
+                return rotateLeftFace(moveChoice, state);
+            case "right":
+                return rotateRightFace(moveChoice, state);
+            case "front":
+                return rotateFrontFace(moveChoice, state);
+            case "back":
+                return rotateBackFace(moveChoice, state);
+            case "top":
+                return rotateTopFace(moveChoice, state);
+            case "bottom":
+                return rotateBottomFace(moveChoice, state);
+            default:
+                return state;
+        }
     }
 
     public Operation getOperation() {

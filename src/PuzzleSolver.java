@@ -164,7 +164,6 @@ public class PuzzleSolver {
     public void beam(int numOfStates){
         boolean isGoalState = false;
         PuzzleState finishedState = null;
-        boolean reachedMaxNodes = false;
 
         //create priority Q
         Comparator<PuzzleState> byFValue = new Comparator<PuzzleState>() {
@@ -189,10 +188,6 @@ public class PuzzleSolver {
         }
 
         while(!isGoalState){
-            if(pq.size() >= maxNodes){
-                reachedMaxNodes = true;
-                break;
-            }
 
             List<PuzzleState> successors = new ArrayList<>();
             //for each state get its successors
