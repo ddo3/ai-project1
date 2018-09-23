@@ -68,6 +68,21 @@ public class PuzzleFace {
         grid.rotateRight();
     }
 
+    public String getRowString(int index ){
+        StringBuilder sb = new StringBuilder();
+        char[] row = grid.getRow(index);
+        sb.append(row[0]);
+        sb.append(row[1]);
+
+        return sb.toString();
+    }
+
+    public boolean allOneColor( char color ){
+        Grid allOneColor = new Grid(color);
+
+        return Grid.isEqual(allOneColor, this.grid);
+    }
+
     public static boolean isEqual( PuzzleFace p1, PuzzleFace p2){
         return Grid.isEqual(p1.grid, p2.grid);
     }

@@ -13,35 +13,25 @@ public class RubikState {
 
     private Operation operation;
     private RubikState parent;
+    private int fValue;
 
-    public RubikState(List<PuzzleFace> faces){
-        state = faces;
-        operation = null;
-        parent = null;
+    public RubikState(String state){
 
-        front = state.get(0);
-        back = state.get(1);
-        left = state.get(2);
-        right = state.get(3);
-        top = state.get(4);
-        bottom = state.get(5);
+        this.state = new ArrayList<PuzzleFace>();
+        var states = state.split(" ");
+        this.front = new PuzzleFace(new Grid(states[0]));
+        this.back = new PuzzleFace(new Grid(states[1]));
+        this.left = new PuzzleFace(new Grid(states[2]));
+        this.right = new PuzzleFace(new Grid(states[3]));
+        this.top = new PuzzleFace(new Grid(states[4]));
+        this.bottom = new PuzzleFace(new Grid(states[5]));
 
-        setSideConnections();
-    }
-
-    public RubikState(PuzzleFace back,PuzzleFace front,PuzzleFace right,PuzzleFace left,PuzzleFace bottom,PuzzleFace top ){
-        this.back = back;
-        this.front = front;
-        this.left = left;
-        this.right = right;
-        this.top = top;
-        this.bottom = bottom;
-
-        state = new ArrayList<>();
         updatePuzzleState();
 
-        operation = null;
+        setSideConnections();
+        operation = new Operation(Direction.START, Face.START);
         parent = null;
+
     }
 
     public RubikState(){
@@ -55,6 +45,9 @@ public class RubikState {
 
         state = new ArrayList<>();
         setSideConnections();
+
+        operation = new Operation(Direction.START, Face.START);
+        parent = null;
 
         updatePuzzleState();
     }
@@ -104,10 +97,11 @@ public class RubikState {
     }
 
     /*******MOVES*****/
-    public RubikState rotateFrontFace(Direction d){
-        var rs = new RubikState(this.state);
+    public static RubikState rotateFrontFace(Direction d, RubikState prev){
+        var rs = new RubikState(prev.toString());
+
         rs.setOperation(new Operation(d,Face.FRONT));
-        rs.setParent(this);
+        rs.setParent(prev);
 
 
         if(d == Direction.RIGHT){
@@ -122,11 +116,11 @@ public class RubikState {
         return rs;
     }
 
-    public RubikState rotateBackFace(Direction d){
+    public static RubikState rotateBackFace(Direction d, RubikState prev){
 
-        var rs = new RubikState(this.state);
+        var rs = new RubikState(prev.toString());
         rs.setOperation(new Operation(d,Face.BACK));
-        rs.setParent(this);
+        rs.setParent(prev);
 
         //set up faces to be rotated
         rs.getTop().getGrid().rotateRight();
@@ -149,11 +143,11 @@ public class RubikState {
         return rs;
     }
 
-    public RubikState rotateLeftFace(Direction d){
+    public static RubikState rotateLeftFace(Direction d, RubikState prev){
 
-        RubikState rs = new RubikState(this.state);
+        var rs = new RubikState(prev.toString());
         rs.setOperation(new Operation(d,Face.LEFT));
-        rs.setParent(this);
+        rs.setParent(prev);
 
         //set up faces to be rotated
         rs.getTop().getGrid().rotateLeft();
@@ -172,10 +166,10 @@ public class RubikState {
         return rs;
     }
 
-    public RubikState rotateRightFace(Direction d){
-        RubikState rs = new RubikState(this.state);
+    public static RubikState rotateRightFace(Direction d, RubikState prev){
+        var rs = new RubikState(prev.toString());
         rs.setOperation(new Operation(d,Face.RIGHT));
-        rs.setParent(this);
+        rs.setParent(prev);
 
         //set up faces to be rotated
         rs.getTop().getGrid().rotateRight();
@@ -195,11 +189,11 @@ public class RubikState {
         return rs;
     }
 
-    public RubikState rotateTopFace(Direction d){
+    public static RubikState rotateTopFace(Direction d, RubikState prev){
 
-        var rs = new RubikState(this.state);
+        var rs = new RubikState(prev.toString());
         rs.setOperation(new Operation(d,Face.TOP));
-        rs.setParent(this);
+        rs.setParent(prev);
 
         //set up faces to be rotated
         rs.getBack().getGrid().rotateLeft();
@@ -221,10 +215,10 @@ public class RubikState {
         return rs;
     }
 
-    public RubikState rotateBottomFace(Direction d){
-        var rs = new RubikState(this.state);
+    public static RubikState rotateBottomFace(Direction d, RubikState prev){
+        var rs = new RubikState(prev.toString());
         rs.setOperation(new Operation(d,Face.BOTTOM));
-        rs.setParent(this);
+        rs.setParent(prev);
 
         //set up faces to be rotated
         rs.getBack().getGrid().rotateLeft();
@@ -247,8 +241,31 @@ public class RubikState {
         return rs;
     }
 
-    /*******/
+    /*****************/
 
+    public static int getNumberOfMisplacedColors(RubikState rs){
+        int sum = 0;
+
+        //left = white
+        sum += Grid.numOfDifferentTiles(rs.getLeft().getGrid(),new Grid('w'));
+
+        //right = green
+        sum += Grid.numOfDifferentTiles(rs.getRight().getGrid(),new Grid('g'));
+
+        //top = blue
+        sum += Grid.numOfDifferentTiles(rs.getTop().getGrid(),new Grid('b'));
+
+        //bottom = orange
+        sum += Grid.numOfDifferentTiles(rs.getBottom().getGrid(),new Grid('o'));
+
+        //front = red
+        sum += Grid.numOfDifferentTiles(rs.getFront().getGrid(),new Grid('r'));
+
+        //back = y
+        sum += Grid.numOfDifferentTiles(rs.getBack().getGrid(),new Grid('y'));
+
+        return sum;
+    }
 
     public void updatePuzzleState(){
         state.clear();
@@ -261,7 +278,11 @@ public class RubikState {
         state.add(bottom);
     }
 
-    public boolean equal(RubikState rs){
+    public static boolean equal(RubikState state1, RubikState state2){
+
+        return state1.toString().equals(state2.toString());
+
+        /*
         var currentFront = state.get(0);
         var currentBack = state.get(1);
         var currentLeft = state.get(2);
@@ -284,6 +305,7 @@ public class RubikState {
                 PuzzleFace.isEqual(currentTop, inTop)&&
                 PuzzleFace.isEqual(currentRight, inRight)&&
                 PuzzleFace.isEqual(currentBottom, inBottom);
+                */
     }
 
     public void setOperation(Operation operation) {
@@ -298,6 +320,14 @@ public class RubikState {
         this.state = state;
     }
 
+    public void setFValue(int fValue) {
+        this.fValue = fValue;
+    }
+
+    public int getFValue() {
+        return fValue;
+    }
+
     public Operation getOperation() {
         return operation;
     }
@@ -310,8 +340,14 @@ public class RubikState {
         return state;
     }
 
-    public void printOperation(){
-        operation.printOperation();
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        for(PuzzleFace face : this.state){
+            sb.append(face.getRowString(0));
+            sb.append(face.getRowString(1));
+            sb.append(" ");
+        }
+        return sb.toString();
     }
 
     private void setSideConnections(){
@@ -352,6 +388,7 @@ public class RubikState {
         bottom.setRight(right);
 
     }
+
 }
 
 

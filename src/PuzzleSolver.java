@@ -44,7 +44,7 @@ public class PuzzleSolver {
         return finalStates;
     }
 
-    public List<PuzzleState> getPath(PuzzleState initial){
+    private List<PuzzleState> getPath(PuzzleState initial){
         LinkedList<PuzzleState> path = new LinkedList<>();
         PuzzleState node = initial;
         while(node.getParent() != null){

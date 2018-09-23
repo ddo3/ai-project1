@@ -7,7 +7,7 @@ public class Operation {
         direction = d;
     }
 
-    public void printOperation(){
-        System.out.println("Turn "+ face.toString() +" face "+ direction.toString());
+    public String toString(){
+        return "Turn "+ face.toString() +" face "+ direction.toString();
     }
 }

@@ -64,6 +64,28 @@ public class Grid {
         setCol(1,copyRow1);
     }
 
+    public static int numOfDifferentTiles(Grid g1, Grid g2){
+        int sum = 0;
+
+        if(g1.row1[0] != g2.row1[0]){
+            sum ++;
+        }
+
+        if(g1.row1[1] != g2.row1[1]){
+            sum ++;
+        }
+
+        if(g1.row2[0] != g2.row2[0]){
+            sum ++;
+        }
+
+        if(g1.row2[1] != g2.row2[1]){
+            sum ++;
+        }
+
+        return sum;
+    }
+
     public static boolean isEqual(Grid g1, Grid g2){
         return g1.row1[0] == g2.row1[0] &&
                 g1.row2[0] == g2.row2[0] &&
@@ -88,7 +110,6 @@ public class Grid {
         System.out.println(rowOne.toString());
         System.out.println(rowTwo.toString());
     }
-
 
     public static void main (String[] args){
 
