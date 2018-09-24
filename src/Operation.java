@@ -7,6 +7,14 @@ public class Operation {
         direction = d;
     }
 
+    public Face getFace() {
+        return face;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
     public String toString(){
         return "Turn "+ face.toString() +" face "+ direction.toString();
     }

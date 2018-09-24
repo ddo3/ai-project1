@@ -4,17 +4,13 @@ import java.util.*;
 public class RubikSolver {
     private PuzzleCube puzzle;
     private int maxNodes;
+    public List<RubikState> solutionPath;
 
     public RubikSolver(){
         puzzle = new PuzzleCube(new RubikState());// creates a normal solves cube
     }
 
     //TODO for A* huristic
-    //2 possible heuristic functions that come to my mind:
-    //(Total number of mismatches with the goal state) / (number of rows or columns or colors)
-    //Average Manhattan distance of each cube with the goal state
-
-
     //we are going to do total number of mismatches with the goal state
 
     private boolean isGoalState(RubikState rs){
@@ -88,6 +84,8 @@ public class RubikSolver {
             path.addFirst(node);
             node = node.getParent();
         }
+
+        solutionPath = path;
         return path;
     }
 
@@ -271,6 +269,19 @@ public class RubikSolver {
     }
     /********************************/
 
+    public void solvePuzzle(){
+        if(solutionPath != null){
+            for(RubikState rs : solutionPath){
+                var op = rs.getOperation();
+                System.out.println(op.toString());
+                puzzle.rotateFace(op.getFace().toString().toLowerCase(), op.getDirection().toString().toLowerCase());
+            }
+        }else{
+            System.out.println("No solution found");
+        }
+
+    }
+
     private void performAction(String action, String param){
         switch(action){
             case "randomizeState" ://works
@@ -289,12 +300,16 @@ public class RubikSolver {
                 this.aStar(param);
                 return;
 
-            case "solve beam"://works 
+            case "solve beam"://works
                 this.beam(Integer.parseInt(param));
                 return;
 
             case "maxNodes"://works
                 this.setMaxNodes(Integer.parseInt(param));
+                return;
+
+            case "solvePuzzle":
+                solvePuzzle();
                 return;
 
             default :
@@ -321,9 +336,9 @@ public class RubikSolver {
         }
     }
 
-    //todo make this command line input
     public static void main(String args[]){
         RubikSolver rs = new RubikSolver();
+        /*
         System.out.println("Start entering commands");
 
         Scanner sc = new Scanner(System.in);
@@ -352,18 +367,21 @@ public class RubikSolver {
         }
 
         System.out.println("GoodBye!");
-        /*
+        */
         if(args[0].contains(".txt")){//parse instructions read from file
             File file = new File(args[0]);
-            try (BufferedReader br = new BufferedReader(new FileReader(file))){
-                String st;
-                while ((st = br.readLine()) != null){
-                    System.out.println(st);
+            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                    String st;
+                    while ((st = br.readLine()) != null) {
+                        rs.parseAndPerformAction(st);
+                    }
+                }catch (FileNotFoundException ex){
+                    System.out.println(ex);
+                }catch (IOException ex){
+                    System.out.println(ex);
                 }
-            }catch (Exception e){
-              System.out.println("Unable to read from file : " + args[0]);
-            }
-
+        }
+        /*
         }else{//need to perform single request
             String action = args[0];
             print(action);

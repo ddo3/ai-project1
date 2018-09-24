@@ -1,0 +1,5 @@
+randomizeState 10
+printState
+solve beam 5
+solvePuzzle
+printState

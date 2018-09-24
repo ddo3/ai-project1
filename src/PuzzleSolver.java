@@ -5,6 +5,8 @@ public class PuzzleSolver {
 
     private int maxNodes;
 
+    public List<PuzzleState> solutionPath;
+
     private Puzzle puzzle;
 
     PuzzleSolver(){
@@ -52,6 +54,7 @@ public class PuzzleSolver {
             node = node.getParent();
         }
 
+        solutionPath = path;
         return path;
     }
 
@@ -232,6 +235,17 @@ public class PuzzleSolver {
 
     /********************************/
 
+    private void solvePuzzle(){
+        if(solutionPath != null){
+            for (PuzzleState ps : solutionPath){
+                System.out.println(" moving blank tile "+ ps.getDirection().toString());
+                puzzle.move(ps.getDirection().toString().toLowerCase());
+            }
+        }else{
+            System.out.println("No solution found");
+        }
+    }
+
     private void performAction(String action, String param){
         switch(action){
             case "setState": //works
@@ -262,6 +276,10 @@ public class PuzzleSolver {
                 maxNodes(Integer.parseInt(param));
                 return;
 
+            case "solvePuzzle":
+                solvePuzzle();
+                return;
+
             default :
                 System.out.println("That was not a valid command!");
                 return;
@@ -286,8 +304,8 @@ public class PuzzleSolver {
         }
     }
 
-    //todo make this command line input
     public static void main(String args[]){
+        /*
         PuzzleSolver ps = new PuzzleSolver();
         System.out.println("Start entering commands");
 
@@ -317,18 +335,24 @@ public class PuzzleSolver {
         }
 
         System.out.println("GoodBye!");
-        /*
-        if(args[0].contains(".txt")){//parse instructions read from file
+        */
+        PuzzleSolver ps = new PuzzleSolver();
+        if(args[0].contains(".txt")) {//parse instructions read from file
             File file = new File(args[0]);
-            try (BufferedReader br = new BufferedReader(new FileReader(file))){
+            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
                 String st;
-                while ((st = br.readLine()) != null){
-                    System.out.println(st);
+                while ((st = br.readLine()) != null) {
+                    //System.out.println(st);
+                    ps.parseAndPerformAction(st);
                 }
-            }catch (Exception e){
-              System.out.println("Unable to read from file : " + args[0]);
+            }catch (FileNotFoundException ex){
+                System.out.println(ex);
+            }catch (IOException ex){
+                System.out.println(ex);
             }
 
+        }
+/*
         }else{//need to perform single request
             String action = args[0];
             print(action);
