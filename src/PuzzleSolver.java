@@ -305,44 +305,13 @@ public class PuzzleSolver {
     }
 
     public static void main(String args[]){
-        /*
-        PuzzleSolver ps = new PuzzleSolver();
-        System.out.println("Start entering commands");
-
-        Scanner sc = new Scanner(System.in);
-        String line = sc.nextLine();
-
-        while (!line.equals("exit")){
-            if(line.contains(".txt")){
-                File file = new File(line);
-                try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                    String st;
-                    while ((st = br.readLine()) != null) {
-                        //System.out.println(st);
-                        ps.parseAndPerformAction(st);
-                    }
-                }catch (FileNotFoundException ex){
-                        System.out.println(ex);
-                }catch (IOException ex){
-                        System.out.println(ex);
-                }
-            }else{
-
-                ps.parseAndPerformAction(line);
-            }
-
-            line = sc.nextLine();
-        }
-
-        System.out.println("GoodBye!");
-        */
         PuzzleSolver ps = new PuzzleSolver();
         if(args[0].contains(".txt")) {//parse instructions read from file
             File file = new File(args[0]);
             try (BufferedReader br = new BufferedReader(new FileReader(file))) {
                 String st;
                 while ((st = br.readLine()) != null) {
-                    //System.out.println(st);
+                    System.out.println(st);
                     ps.parseAndPerformAction(st);
                 }
             }catch (FileNotFoundException ex){
@@ -350,24 +319,6 @@ public class PuzzleSolver {
             }catch (IOException ex){
                 System.out.println(ex);
             }
-
         }
-/*
-        }else{//need to perform single request
-            String action = args[0];
-            print(action);
-            var successful = false;
-            if(action.equals("solve")){
-                action = action + " "+ args[1];
-                successful = ps.performAction(action, args[2]);
-            }else if(args.length == 1){
-                successful = ps.performAction(action,"");
-            }else{
-                successful = ps.performAction(action,args[1]);
-            }
-
-            ps.printSuccess(successful);
-        }
-        */
     }
 }

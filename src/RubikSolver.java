@@ -338,65 +338,20 @@ public class RubikSolver {
 
     public static void main(String args[]){
         RubikSolver rs = new RubikSolver();
-        /*
-        System.out.println("Start entering commands");
 
-        Scanner sc = new Scanner(System.in);
-        String line = sc.nextLine();
-
-        while (!line.equals("exit")){
-            if(line.contains(".txt")){
-                File file = new File(line);
-                try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                    String st;
-                    while ((st = br.readLine()) != null) {
-                        //System.out.println(st);
-                        rs.parseAndPerformAction(st);
-                    }
-                }catch (FileNotFoundException ex){
-                    System.out.println(ex);
-                }catch (IOException ex){
-                    System.out.println(ex);
-                }
-            }else{
-
-                rs.parseAndPerformAction(line);
-            }
-
-            line = sc.nextLine();
-        }
-
-        System.out.println("GoodBye!");
-        */
-        if(args[0].contains(".txt")){//parse instructions read from file
+        if(args[0].contains(".txt")) {//parse instructions read from file
             File file = new File(args[0]);
             try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                    String st;
-                    while ((st = br.readLine()) != null) {
-                        rs.parseAndPerformAction(st);
-                    }
-                }catch (FileNotFoundException ex){
-                    System.out.println(ex);
-                }catch (IOException ex){
-                    System.out.println(ex);
+                String st;
+                while ((st = br.readLine()) != null) {
+                    System.out.println(st);
+                    rs.parseAndPerformAction(st);
                 }
-        }
-        /*
-        }else{//need to perform single request
-            String action = args[0];
-            print(action);
-            var successful = false;
-            if(action.equals("solve")){
-                action = action + " "+ args[1];
-                successful = ps.performAction(action, args[2]);
-            }else if(args.length == 1){
-                successful = ps.performAction(action,"");
-            }else{
-                successful = ps.performAction(action,args[1]);
+            } catch (FileNotFoundException ex) {
+                System.out.println(ex);
+            } catch (IOException ex) {
+                System.out.println(ex);
             }
-
-            ps.printSuccess(successful);
         }
-        */
     }
 }

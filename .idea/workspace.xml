@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b456b1c4-4d48-4ab4-a7b6-7b79617e3021" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PuzzleSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PuzzleSolver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/RubikSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RubikSolver.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -19,7 +19,7 @@
     <session id="1581972603">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="25" />
+          <entry key="project.closed" value="26" />
           <entry key="project.open.time.12" value="1" />
           <entry key="project.open.time.18" value="5" />
           <entry key="project.open.time.19" value="1" />
@@ -34,22 +34,22 @@
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.34" value="2" />
           <entry key="project.open.time.36" value="1" />
-          <entry key="project.open.time.38" value="2" />
+          <entry key="project.open.time.38" value="3" />
           <entry key="project.open.time.41" value="1" />
-          <entry key="project.opened" value="26" />
+          <entry key="project.opened" value="27" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="5" />
-          <entry key="java" value="32251" />
+          <entry key="java" value="32254" />
           <entry key="testAStarH2" value="2" />
           <entry key="txt" value="81" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="32251" />
+          <entry key="JAVA" value="32254" />
           <entry key="PLAIN_TEXT" value="88" />
         </counts>
       </usages-collector>
@@ -72,22 +72,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/PuzzleSolver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="629">
-              <caret line="113" column="22" selection-start-line="113" selection-start-column="22" selection-end-line="113" selection-end-column="22" />
+            <state relative-caret-position="208">
+              <caret line="324" lean-forward="true" selection-start-line="324" selection-end-line="324" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#getAllReachableStatesFromState#0;class#PuzzleSolver#0" />
                 <element signature="method#getPath#0;class#PuzzleSolver#0" />
                 <element signature="method#printList#0;class#PuzzleSolver#0" />
                 <element signature="method#getKRandomStates#0;class#PuzzleSolver#0" />
+                <element signature="method#aStar#0;class#PuzzleSolver#0" />
                 <element signature="class#2755:2951" />
                 <element signature="method#beam#0;class#PuzzleSolver#0" />
+                <element signature="method#solvePuzzle#0;class#PuzzleSolver#0" />
                 <element signature="method#performAction#0;class#PuzzleSolver#0" />
                 <element signature="method#parseAndPerformAction#0;class#PuzzleSolver#0" />
-                <element signature="method#main#0;class#PuzzleSolver#0" />
               </folding>
             </state>
           </provider>
@@ -96,8 +97,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/RubikSolver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="6" column="42" selection-start-line="6" selection-start-column="42" selection-end-line="6" selection-end-column="42" />
+            <state relative-caret-position="191">
+              <caret line="346" column="43" lean-forward="true" selection-start-line="346" selection-start-column="20" selection-end-line="346" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#isGoalState#0;class#RubikSolver#0" />
@@ -109,91 +110,6 @@
                 <element signature="method#beam#0;class#RubikSolver#0" />
                 <element signature="method#performAction#0;class#RubikSolver#0" />
                 <element signature="method#parseAndPerformAction#0;class#RubikSolver#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Operation.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="25" />
-              <folding>
-                <element signature="e#200#201#0" expanded="true" />
-                <element signature="e#227#228#0" expanded="true" />
-                <element signature="e#266#267#0" expanded="true" />
-                <element signature="e#298#299#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/RubikState.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1428">
-              <caret line="268" column="66" selection-start-line="268" selection-start-column="66" selection-end-line="268" selection-end-column="66" />
-              <folding>
-                <element signature="method#print#0;class#RubikState#0" />
-                <element signature="method#getBack#0;class#RubikState#0" />
-                <element signature="method#getBottom#0;class#RubikState#0" />
-                <element signature="method#getFront#0;class#RubikState#0" />
-                <element signature="method#getLeft#0;class#RubikState#0" />
-                <element signature="method#getRight#0;class#RubikState#0" />
-                <element signature="method#getTop#0;class#RubikState#0" />
-                <element signature="method#rotateFrontFace#0;class#RubikState#0" />
-                <element signature="method#rotateBackFace#0;class#RubikState#0" />
-                <element signature="method#rotateLeftFace#0;class#RubikState#0" />
-                <element signature="method#rotateRightFace#0;class#RubikState#0" />
-                <element signature="method#rotateTopFace#0;class#RubikState#0" />
-                <element signature="method#rotateBottomFace#0;class#RubikState#0" />
-                <element signature="method#getNumberOfMisplacedColors#0;class#RubikState#0" />
-                <element signature="method#getAllSuccessors#0;class#RubikState#0" />
-                <element signature="method#updatePuzzleState#0;class#RubikState#0" />
-                <element signature="method#equal#0;class#RubikState#0" />
-                <element signature="method#getRandomState#0;class#RubikState#0" />
-                <element signature="method#toString#0;class#RubikState#0" />
-                <element signature="method#setSideConnections#0;class#RubikState#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/PuzzleCube.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1054">
-              <caret line="106" column="20" selection-start-line="106" selection-start-column="20" selection-end-line="106" selection-end-column="20" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#rotate#0;class#PuzzleCube#0" />
-                <element signature="method#getFace#0;class#PuzzleCube#0" />
-                <element signature="method#main#0;class#PuzzleCube#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/PuzzleState.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="44">
-              <caret line="127" column="60" selection-start-line="127" selection-start-column="60" selection-end-line="127" selection-end-column="60" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#PuzzleState#1;class#PuzzleState#0" />
-                <element signature="method#randomize#0;class#PuzzleState#0" />
-                <element signature="method#getNRandomStates#0;class#PuzzleState#0" />
-                <element signature="method#getRandomState#0;class#PuzzleState#0" />
-                <element signature="method#swap#0;class#PuzzleState#0" />
-                <element signature="method#getNumberOfMisplacedTiles#0;class#PuzzleState#0" />
-                <element signature="method#getSumOfDistOfTilesFromGoal#0;class#PuzzleState#0" />
-                <element signature="method#getDistOfSingleTileFromGoal#0;class#PuzzleState#0" />
-                <element signature="method#moveDown#0;class#PuzzleState#0" />
-                <element signature="method#moveLeft#0;class#PuzzleState#0" />
-                <element signature="method#moveRight#0;class#PuzzleState#0" />
-                <element signature="method#main#0;class#PuzzleState#0" />
               </folding>
             </state>
           </provider>
@@ -237,8 +153,8 @@
         <option value="$PROJECT_DIR$/src/PuzzleCube.java" />
         <option value="$PROJECT_DIR$/src/RubikState.java" />
         <option value="$PROJECT_DIR$/src/Operation.java" />
-        <option value="$PROJECT_DIR$/src/PuzzleSolver.java" />
         <option value="$PROJECT_DIR$/src/RubikSolver.java" />
+        <option value="$PROJECT_DIR$/src/PuzzleSolver.java" />
       </list>
     </option>
   </component>
@@ -255,7 +171,7 @@
     <panes />
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537802961191" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537998927925" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -380,9 +296,9 @@
       <window_info id="Capture Tool" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Image Layers" order="4" />
-      <window_info active="true" content_ui="combo" id="Project" order="5" visible="true" weight="0.1708502" />
+      <window_info content_ui="combo" id="Project" order="5" weight="0.1708502" />
       <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="0" visible="true" weight="0.38078293" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="0" visible="true" weight="0.36298934" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="2" weight="0.3291815" />
       <window_info anchor="bottom" id="Message" order="3" />
@@ -503,11 +419,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
           <caret line="55" column="9" lean-forward="true" selection-start-line="45" selection-start-column="8" selection-end-line="55" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#Puzzle#0;class#Puzzle#0" />
-            <element signature="method#move#0;class#Puzzle#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -525,60 +436,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/PuzzleSolver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="113" column="22" selection-start-line="113" selection-start-column="22" selection-end-line="113" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#getAllReachableStatesFromState#0;class#PuzzleSolver#0" />
-            <element signature="method#getPath#0;class#PuzzleSolver#0" />
-            <element signature="method#printList#0;class#PuzzleSolver#0" />
-            <element signature="method#getKRandomStates#0;class#PuzzleSolver#0" />
-            <element signature="class#2755:2951" />
-            <element signature="method#beam#0;class#PuzzleSolver#0" />
-            <element signature="method#performAction#0;class#PuzzleSolver#0" />
-            <element signature="method#parseAndPerformAction#0;class#PuzzleSolver#0" />
-            <element signature="method#main#0;class#PuzzleSolver#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/RubikSolver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="6" column="42" selection-start-line="6" selection-start-column="42" selection-end-line="6" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#isGoalState#0;class#RubikSolver#0" />
-            <element signature="method#getAllReachableStatesFromState#0;class#RubikSolver#0" />
-            <element signature="method#getPath#0;class#RubikSolver#0" />
-            <element signature="method#printList#0;class#RubikSolver#0" />
-            <element signature="method#getKRandomStates#0;class#RubikSolver#0" />
-            <element signature="method#aStar#0;class#RubikSolver#0" />
-            <element signature="method#beam#0;class#RubikSolver#0" />
-            <element signature="method#performAction#0;class#RubikSolver#0" />
-            <element signature="method#parseAndPerformAction#0;class#RubikSolver#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Operation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="25" />
-          <folding>
-            <element signature="e#200#201#0" expanded="true" />
-            <element signature="e#227#228#0" expanded="true" />
-            <element signature="e#266#267#0" expanded="true" />
-            <element signature="e#298#299#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/RubikState.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1428">
+        <state relative-caret-position="276">
           <caret line="268" column="66" selection-start-line="268" selection-start-column="66" selection-end-line="268" selection-end-column="66" />
           <folding>
             <element signature="method#print#0;class#RubikState#0" />
@@ -605,19 +465,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/PuzzleCube.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1054">
-          <caret line="106" column="20" selection-start-line="106" selection-start-column="20" selection-end-line="106" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#rotate#0;class#PuzzleCube#0" />
-            <element signature="method#getFace#0;class#PuzzleCube#0" />
-            <element signature="method#main#0;class#PuzzleCube#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/PuzzleState.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
@@ -636,6 +483,71 @@
             <element signature="method#moveLeft#0;class#PuzzleState#0" />
             <element signature="method#moveRight#0;class#PuzzleState#0" />
             <element signature="method#main#0;class#PuzzleState#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PuzzleCube.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="106" column="20" selection-start-line="106" selection-start-column="20" selection-end-line="106" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#rotate#0;class#PuzzleCube#0" />
+            <element signature="method#getFace#0;class#PuzzleCube#0" />
+            <element signature="method#main#0;class#PuzzleCube#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Operation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="25" />
+          <folding>
+            <element signature="e#200#201#0" expanded="true" />
+            <element signature="e#227#228#0" expanded="true" />
+            <element signature="e#266#267#0" expanded="true" />
+            <element signature="e#298#299#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/RubikSolver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="346" column="43" lean-forward="true" selection-start-line="346" selection-start-column="20" selection-end-line="346" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#isGoalState#0;class#RubikSolver#0" />
+            <element signature="method#getAllReachableStatesFromState#0;class#RubikSolver#0" />
+            <element signature="method#getPath#0;class#RubikSolver#0" />
+            <element signature="method#printList#0;class#RubikSolver#0" />
+            <element signature="method#getKRandomStates#0;class#RubikSolver#0" />
+            <element signature="method#aStar#0;class#RubikSolver#0" />
+            <element signature="method#beam#0;class#RubikSolver#0" />
+            <element signature="method#performAction#0;class#RubikSolver#0" />
+            <element signature="method#parseAndPerformAction#0;class#RubikSolver#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PuzzleSolver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="324" lean-forward="true" selection-start-line="324" selection-end-line="324" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#getAllReachableStatesFromState#0;class#PuzzleSolver#0" />
+            <element signature="method#getPath#0;class#PuzzleSolver#0" />
+            <element signature="method#printList#0;class#PuzzleSolver#0" />
+            <element signature="method#getKRandomStates#0;class#PuzzleSolver#0" />
+            <element signature="method#aStar#0;class#PuzzleSolver#0" />
+            <element signature="class#2755:2951" />
+            <element signature="method#beam#0;class#PuzzleSolver#0" />
+            <element signature="method#solvePuzzle#0;class#PuzzleSolver#0" />
+            <element signature="method#performAction#0;class#PuzzleSolver#0" />
+            <element signature="method#parseAndPerformAction#0;class#PuzzleSolver#0" />
           </folding>
         </state>
       </provider>
