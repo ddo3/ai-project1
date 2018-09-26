@@ -1,0 +1,9 @@
+maxNodes 10000
+randomizeState 3
+solve A-star h1
+solve A-star h2
+solve beam 10
+randomizeState 10
+solve A-star h1
+solve A-star h2
+solve beam 10

@@ -1,0 +1,4 @@
+maxNodes 100000
+randomizeState 3
+solve A-star h1
+solve beam 10

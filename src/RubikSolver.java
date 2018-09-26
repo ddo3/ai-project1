@@ -4,7 +4,7 @@ import java.util.*;
 public class RubikSolver {
     private PuzzleCube puzzle;
     private int maxNodes;
-    public List<RubikState> solutionPath;
+    private List<RubikState> solutionPath;
 
     public RubikSolver(){
         puzzle = new PuzzleCube(new RubikState());// creates a normal solves cube

@@ -1,0 +1,13 @@
+maxNodes 10000
+randomizeState 10
+solve A-star h1
+solve A-star h2
+randomizeState 30
+solve A-star h1
+solve A-star h2
+randomizeState 60
+solve A-star h1
+solve A-star h2
+randomizeState 70
+solve A-star h1
+solve A-star h2
